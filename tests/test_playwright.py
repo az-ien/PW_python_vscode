@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, expect
 
-# to run test the terminal command that is used is "pytest tests/test_playwright.py"
+# Setup: python -m pip install -r requirements.txt
+# Run tests: pytest tests/test_playwright.py
 
 
 def test_verifypageURL(page: Page):
