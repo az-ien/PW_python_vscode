@@ -5,8 +5,8 @@ ENV/
 env/
 
 # Pytest Cache
-.pytest_cache/
-__pycache__/
+#.pytest_cache/
+#__pycache__/
 
 # Python
 *.pyc
