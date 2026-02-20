@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 
+
 # Setup: python -m pip install -r requirements.txt
 # Note: Ensure that Playwright browsers are installed by running: playwright install
 # Run tests: pytest tests/test_playwright.py
