@@ -14,6 +14,8 @@ from playwright.sync_api import Page, expect
 # IMP FOR TypeScript OR JavaScript
 # playwright python supports both synchronous and asynchronous programming styles..recommedned synchronous style for simplicity and ease of use, especially for beginners.
 # in API testing then asynchronous style can be beneficial for handling multiple requests concurrently, improving performance and efficiency.
+# pytest tests/test_playwright.py -s -v --headed --browser firefox --browser chromium --browser webkit
+
 
 
 def test_verifypageURL(page: Page):
