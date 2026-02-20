@@ -20,10 +20,10 @@ from playwright.sync_api import Page, expect
 
 
 def test_verifypageURL(page: Page):
-    page.goto("https://www.google.com")
+    page.goto("https://ultimateqa.com/simple-html-elements-for-automation/")
     myurl=page.url
     print("URL of the page is: " + myurl)
-    expect(page).to_have_url("https://www.google.com/")
+    expect(page).to_have_url("https://ultimateqa.com/simple-html-elements-for-automation/")
 
 def test_verifytitle(page: Page):
     page.goto("https://www.google.com")
