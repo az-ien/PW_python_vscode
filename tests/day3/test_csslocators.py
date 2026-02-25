@@ -6,6 +6,15 @@
 # tag.class[attribute=value]
 # tag#id.class[attribute=value]
 # absolute css is like absolute xpath starting from one node and going node to node   parent > child > child
+# body>div>*:nth-child(1)
+# p[class^='ma'] this is a starts with syntax, it will match any element whose class attribute starts with 'main'
+# p[class$='in'] this is an ends with syntax, it will match any element whose class attribute ends with 'main'
+# p[class*='ai'] this is a contains syntax, it will match any element whose class attribute contains 'main'
+# p:not(.main) this is a not syntax, it will match any element that does not have the class 'main'
+# p:has(.main) this is a has syntax, it will match any element that has a child element with the class 'main'
+# p:has-text("text") this is a has-text syntax, it will match any element that has the text "text" anywhere inside it
+# title+link this is an adjacent sibling syntax, it will match any element that is immediately preceded by a sibling element with the tag name 'title'
+# body>head>title+link this is an adjacent sibling syntax, it will match any element that is immediately preceded by a sibling element with the tag name 'title' which is a child of 'head' which is a child of 'body'
 
 
 from playwright.sync_api import Page, expect
