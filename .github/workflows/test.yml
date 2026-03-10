@@ -34,3 +34,18 @@ jobs:
     - name: Run tests
       run: |
         pytest tests/ -v
+
+    - name: Run tests with Allure
+      run: |
+        pytest tests/ --alluredir=allure-results
+
+    - name: Generate Allure HTML report
+      run: |
+        allure generate allure-results --clean -o allure-report
+
+    - name: Upload Allure report as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report
