@@ -22,3 +22,6 @@ build/
 .idea/
 *.swp
 *.swo
+
+#Html Report
+report.html
