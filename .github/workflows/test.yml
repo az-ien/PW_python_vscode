@@ -45,4 +45,4 @@ jobs:
       if: always()
       with:
         name: pytest-html-report
-        path: test-report/
+        path: reports/
