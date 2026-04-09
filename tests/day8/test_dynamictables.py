@@ -1,7 +1,10 @@
 from playwright.sync_api import sync_playwright, Page, expect
 
-#css selector can be used to use partial text and it will get the complete elemenent with that partial text.
-#no need for any text check conditions in the code use the css selector
+# css selector can be used to use partial text and it will get the complete elemenent with that partial text.
+# no need for any text check conditions in the code use the css selector
+# while loop becuase we dont know when to stop so stop on false condition
+# for loop is when we know where we can stop
+
 
 
 def test_static_dynamic_table(page: Page):
@@ -22,6 +25,8 @@ def test_static_dynamic_table(page: Page):
 
     yellowBarText = page.locator("#chrome-cpu")
     expect(yellowBarText).to_contain_text(CPUusage)
+
+
 
 
     
