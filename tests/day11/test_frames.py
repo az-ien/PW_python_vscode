@@ -39,6 +39,13 @@ def test_first_frame(page: Page):
 
 
 def test_second_frame(page: Page):
+
+    # Force a large viewport so the navbar doesn't collapse
+    page.set_viewport_size({"width": 1920, "height": 1080})
+    
+    page.goto("https://practice-automation.com/iframes/")
+    # ... rest of your code
+
     page.goto("https://practice-automation.com/iframes/")
     page.wait_for_timeout(2000)
 
