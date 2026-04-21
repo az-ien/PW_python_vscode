@@ -27,6 +27,8 @@ def test_slider_drag_range(page: Page):
     slider_bar = page.locator("#slider-range")
     slider_bar.scroll_into_view_if_needed()
 
+    page.wait_for_timeout(2000)
+
     # confirm the slider is actually visible on the page
     expect(slider_bar).to_be_visible()
 

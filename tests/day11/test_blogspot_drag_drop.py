@@ -40,6 +40,9 @@ def test_drag_and_drop(page: Page):
     drag_box  = draggable.bounding_box()
     drop_box  = droppable.bounding_box()
 
+
+    page.wait_for_timeout(2000)
+
     # calculate center of the draggable element (where we'll press the mouse)
     drag_center_x = drag_box["x"] + drag_box["width"] / 2
     drag_center_y = drag_box["y"] + drag_box["height"] / 2
