@@ -44,7 +44,22 @@ def test_handle_poopups(playwright:Playwright):
  
 
 
+# for authentication popups as this is a popup that is launched immediately after the page is loaded
+# it has to be handeled like an event. the best way to handle the event is to pass the credentials in the context that is then used by the page 
+# this is so that as soon as the page is loaded the authentication is done and the popup is not shown
+# and the next assert on success message is done
 
+def test_authpopup(playwright:Playwright):
+    browser =playwright.chromium.launch(headless=True)
+    context = browser.new_context(http_credentials={"username":"admin","password":"admin"})
+    page = context.new_page()
+    page.goto("https://the-internet.herokuapp.com/basic_auth")
+    page.wait_for_load_state()
+    expect(page.locator(":text('Congratulations! You must have the proper credentials.')")).to_be_visible()
+    page.wait_for_timeout(3000)
+
+
+    
 
 
 
