@@ -60,20 +60,21 @@ def test_handle_poopups(playwright:Playwright):
     all_popup = page.context.pages
     print("Total pages opened:",len(all_popup))
 
-    print("Main page url:",page.context.pages[0].url)
-    print("URL of 1st popup:",page.context.pages[1].url)
-    print("URL of 2nd popup:",page.context.pages[2].url)
+    # FIX: Do NOT rely on index positions (pages[1], pages[2]) to identify popups.
+    # The order of pages in page.context.pages depends on which popup finishes loading first,
+    # which is non-deterministic and varies between local runs and CI (GitHub Actions).
+    # Instead, find each popup by its URL so the test is deterministic in any environment.
 
-    page1 = page.context.pages[1]
-    page2 = page.context.pages[2]
+    playwright_page = next(p for p in all_popup if "playwright.dev" in p.url)
+    selenium_page = next(p for p in all_popup if "selenium.dev" in p.url)
 
-    print("Page1 title:",page1.title())
-    expect(page1).to_have_title("Fast and reliable end-to-end testing for modern web apps | Playwright")
-    page1.close()
+    print("Playwright page title:", playwright_page.title())
+    expect(playwright_page).to_have_title("Fast and reliable end-to-end testing for modern web apps | Playwright")
+    playwright_page.close()
 
-    print("Page2 title:",page2.title())
-    expect(page2).to_have_title("Selenium")
-    page2.close()
+    print("Selenium page title:", selenium_page.title())
+    expect(selenium_page).to_have_title("Selenium")
+    selenium_page.close()
  
 
 
