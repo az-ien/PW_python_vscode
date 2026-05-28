@@ -68,11 +68,11 @@ def test_handle_poopups(playwright:Playwright):
     page2 = page.context.pages[2]
 
     print("Page1 title:",page1.title())
-    expect(page1).to_have_title("Selenium")
+    expect(page1).to_have_title("Fast and reliable end-to-end testing for modern web apps | Playwright")
     page1.close()
 
     print("Page2 title:",page2.title())
-    expect(page2).to_have_title("Fast and reliable end-to-end testing for modern web apps | Playwright")
+    expect(page2).to_have_title("Selenium")
     page2.close()
  
 
