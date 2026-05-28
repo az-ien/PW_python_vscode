@@ -7,6 +7,39 @@ However, when a popup opens, it is just a new Page (tab/window) being spawned by
 
 popups although open in new window but they still are treated like child of the parent page in terms of cookies and local storage.
 
+
+Selenium = reactive & manual
+Playwright = event-driven & automatic
+
+Playwright
+Alert = Dialog
+Popup = Page
+Everything is a real object.
+
+
+Browser
+ └─ Context
+     ├─ Page (main)
+     ├─ Page (popup)
+     └─ Page (new tab)
+          └─ Dialog (alert)
+
+
+
+Selenium
+Alert = Alert
+Popup / Tab / Page = same thing
+You just switch, nothing is a separate object.
+
+Driver
+ └─ Current Window
+     ├─ switchTo(window)
+     └─ switchTo(alert)
+
+
+
+
+
 """
 
 def test_handle_poopups(playwright:Playwright):
