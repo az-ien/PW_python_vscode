@@ -25,3 +25,9 @@ build/
 
 #Html Report
 report.html
+
+#Screenshots
+screenshots/
+
+#Trace
+trace/
