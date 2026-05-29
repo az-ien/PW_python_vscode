@@ -30,6 +30,6 @@ def test_trace_creation(page: Page):
     page.context.tracing.stop(path="trace/trace.zip")
 
     #open the zip file using the command in terminal
-    # playwright trace open trace/trace.zip 
+    # run this command in terminal: playwright show-trace 
     # open that file in browser 
     # this is very useful for debugging 
