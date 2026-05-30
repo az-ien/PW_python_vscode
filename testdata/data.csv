@@ -1,0 +1,4 @@
+email,password,expected_result
+laura.taylor1234@example.com,test123,valid
+lobhnyy.ala@example.com,test321,invalid
+,,invalid
