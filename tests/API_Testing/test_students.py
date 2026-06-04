@@ -8,27 +8,30 @@ So you can now call real REST endpoints like:
 ✔️ GET http://localhost:3000/students
 ✔️ GET http://localhost:3000/students/1
 
-API Testing in Playwright:
-- For UI tests we use `page` fixture to interact with the browser
-- For API tests we use `api_request_context` fixture — no browser opens
-- api_request_context is like Postman but in code
-- It supports: .get(), .post(), .put(), .delete() methods
-- Response gives us: .status (status code) and .json() (response body)
 
 Fixtures (from conftest.py):
 - `student`   → loads students.json data (like base.extend in TypeScript)
-- `base_url`  → provides the base URL http://localhost:3000
 
-Playwright Python expect() for API responses:
-- expect(response).to_be_ok()       → checks status is 200-299
-- expect(response).not_to_be_ok()   → checks status is NOT 200-299
 - For specific status codes or JSON data we use assert, as expect does not support those
 '''
 
+import os
+import pytest
 from playwright.sync_api import expect
 
+# Automatically skip all tests in this file if we are running in CI (GitHub Actions)
+# since the local json-server is not running there.
+pytestmark = pytest.mark.skipif(
+    os.environ.get("CI") == "true",
+    reason="Skipping API tests in CI environment as the local json-server is not available"
+)
 
-# ---- GET Tests ----
+
+
+# ---- Tests ----
+
+# new parameter to chain the endpoint requests in the tests
+chainParameter = "active"
 
 
 # GET /students — should return all 4 students
@@ -56,3 +59,81 @@ def test_get_all_students(api_request_context, student):
     print("Total students from API:", len(data))
     print("Total students from JSON:", len(student))
 
+
+
+# POST /students — should add a new student
+# test_add_student is dependent on test_get_all_students
+# so it should be run after test_get_all_students
+# and the chainParameter should be updated with the new student id
+
+def test_add_student(api_request_context, student):
+    new_student_data = {
+      "id": "874",
+      "name": "Macky",
+      "location": "Poland",
+      "phone": "99443321",
+      "courses": [
+        "ML",
+        "AWS"
+      ]
+    }
+
+    response = api_request_context.post("http://localhost:3000/students", data=new_student_data)
+    expect(response).to_be_ok()
+    assert response.status == 201
+
+    # get the data from the response
+    new_data = response.json()
+
+    if new_data["id"] == "874":
+        print("The newly created student details:", new_data)
+        
+    global chainParameter
+    chainParameter = new_data["id"]
+    print("The new parameter is:", chainParameter)
+
+    
+    
+# PATCH /students/:id — should update an existing student
+# test_update_student is dependent on test_add_student
+# so it should be run after test_add_student
+def test_update_student_location_only(api_request_context, student):
+    update_data ={
+        "location": "Jamamamambabababalalalalayayaya"
+    }
+
+    response = api_request_context.patch(f"http://localhost:3000/students/{chainParameter}", data=update_data)
+    expect(response).to_be_ok()
+    assert response.status == 200
+
+    updated_data = response.json()
+    print("The updated student details:", updated_data)
+
+
+
+# update an existing student with a speific id and dont use the chainParameter
+# also this test should not be dependent on any other test
+
+def test_update_specific_student(api_request_context, student):
+    specific_id = 4
+    update_data = {
+        "location": "lagi lagi lagi la land"
+    }
+    response = api_request_context.patch(f"http://localhost:3000/students/{specific_id}", data=update_data)
+    expect(response).to_be_ok()
+    assert response.status == 200
+    updated_data = response.json()
+    print("The updated student details:", updated_data)
+
+# DELETE /students/{chainParameter} — should delete the student added in test_add_student
+# test_delete_student is dependent on test_add_student
+# so it should be run after test_add_student
+
+
+def test_delete_student(api_request_context, student):
+    response = api_request_context.delete(f"http://localhost:3000/students/{chainParameter}")
+    expect(response).to_be_ok()
+    assert response.status == 200
+    deleted_data = response.json()
+    print("The deleted student details:", deleted_data)
+    

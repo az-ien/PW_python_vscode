@@ -24,7 +24,7 @@ import os
 '''
 
 
-
+# gets the student data from the JSON file
 @pytest.fixture
 def student():
     """Load student data from the JSON file — like a TypeScript fixture"""
@@ -52,6 +52,7 @@ The plugin only provides browser-related fixtures (page, browser, context). It d
 
 '''
 
+# adds the libraray for API testing
 @pytest.fixture(scope="session")
 def api_request_context(playwright):
     """Create an API request context — like the `request` fixture in TypeScript Playwright"""
