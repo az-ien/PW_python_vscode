@@ -1,0 +1,45 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "name": "john",
+      "location": "uae",
+      "phone": "1234567890",
+      "courses": [
+        "Java",
+        "Selenium"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "kim",
+      "location": "us",
+      "phone": "99885522",
+      "courses": [
+        "Python",
+        "Appium"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "smith",
+      "location": "canada",
+      "phone": "11223322",
+      "courses": [
+        "c#",
+        "restAPI"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Jack",
+      "location": "uk",
+      "phone": "3344553344",
+      "courses": [
+        "c",
+        "c++"
+      ]
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
